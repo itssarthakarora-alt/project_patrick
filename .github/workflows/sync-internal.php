@@ -1,0 +1,80 @@
+# Pipeline 2 — Keep internal.php and check-protect/verrify.php in sync (GitHub is the source of truth)
+# Triggers:
+#   - every push that touches either file (immediate sync)
+#   - every 15 minutes (scheduled drift check)
+#   - manual run from the Actions tab
+# If a server copy differs from GitHub's, GitHub's copy is pushed up.
+name: Sync internal.php + verrify.php (GitHub → GoDaddy)
+
+on:
+  push:
+    paths:
+      - 'internal.php'
+      - 'check-protect/verrify.php'
+  schedule:
+    - cron: '7,22,37,52 * * * *'   # every 15 min, offset to avoid top-of-hour load
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Check and sync files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Inject Telegram token
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          set -euo pipefail
+          sed -i "s|__TELEGRAM_BOT_TOKEN__|${TELEGRAM_BOT_TOKEN}|g" internal.php
+          if grep -q "__TELEGRAM_BOT_TOKEN__" internal.php; then
+            echo "Token injection failed — placeholder still present."
+            exit 1
+          fi
+
+      - name: Compare files with the server copies
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+
+          # This FTP account opens directly inside public_html/jerryscvv.vc/,
+          # so paths below are relative to that folder.
+          for FILE in internal.php check-protect/verrify.php; do
+            FTP_URL="ftp://${FTP_SERVER}/${FILE}"
+            LOCAL_COPY="/tmp/remote-${FILE//\//_}"   # avoid slashes in the temp filename
+            echo "Checking server copy: ${FILE}"
+
+            set +e
+            curl --silent --show-error --connect-timeout 30 \
+              -u "${FTP_USERNAME}:${FTP_PASSWORD}" \
+              "${FTP_URL}" -o "${LOCAL_COPY}"
+            RC=$?
+            set -e
+
+            if [ "${RC}" -eq 0 ]; then
+              if cmp -s "${FILE}" "${LOCAL_COPY}"; then
+                echo "OK: ${FILE} is already in sync - nothing to do."
+              else
+                echo "CHANGED: difference detected - uploading GitHub's ${FILE}."
+                curl --silent --show-error --connect-timeout 30 --ftp-create-dirs \
+                  -u "${FTP_USERNAME}:${FTP_PASSWORD}" \
+                  -T "${FILE}" "${FTP_URL}"
+              fi
+
+            elif [ "${RC}" -eq 78 ]; then
+              echo "MISSING: ${FILE} not found on the server - uploading it from GitHub."
+              curl --silent --show-error --connect-timeout 30 --ftp-create-dirs \
+                -u "${FTP_USERNAME}:${FTP_PASSWORD}" \
+                -T "${FILE}" "${FTP_URL}"
+
+            else
+              echo "ERROR: could not check ${FILE} (curl exit code ${RC})."
+              exit 1
+            fi
+          done
