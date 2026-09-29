@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <title>Patrick Market</title>
+    
+    <!-- META DATA -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="PatrickStash - #1 cc shop in darknet">
+    <meta name="author" content="PatrickStash - #1 cc shop in darknet">
+    <link rel="canonical" href="https://stashpatricks.vc/check-protect/" />
+    
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="pyF2MLqdHSVdbax6hJ06fcz80CAQVxQAjocycA2k">
+    
+    <!-- FAVICON -->
+    <link rel="shortcut icon" type="image/x-icon" href="public/assets/images/brand/favicon.ico" />
+    
+    <!-- BOOTSTRAP CSS -->
+    <link id="style" href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <!-- STYLE CSS -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/skin-modes.css" rel="stylesheet" />
+    
+    <!-- FONT-ICONS CSS -->
+    <link href="assets/plugins/icons/icons.css" rel="stylesheet" />
+    
+    <!-- Material Design Iconic Font (for zmdi icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="assets/css/custom.css?v1.1.4">
+    
+    <style type="text/css">
+        /* Global loader styling */
+        #global-loader {
+            position: fixed;
+            z-index: 50000;
+            background: rgb(255, 255, 255);
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            height: 100vh;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .loader-img {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            top: 43%;
+            left: 0;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        /* Icon positioning fix */
+        .wrap-input100 {
+            position: relative;
+            width: 100%;
+            z-index: 1;
+        }
+        
+        .symbol-input100 {
+            font-size: 18px;
+            color: #999;
+            display: flex;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            padding-left: 20px;
+        }
+        
+        .input100 {
+            padding-left: 55px !important;
+        }
+    </style>
+</head>
+
+<body class="ltr login-img">
+    
+    <!-- GLOBAL-LOADER -->
+    <div id="global-loader">
+        <img src="public/assets/images/loader.svg" class="loader-img" alt="Loader">
+    </div>
+    
+    <!-- PAGE -->
+    <div class="page">
+        <div>
+            <div class="container wd-md-50p wd-sm-100p">
+                <div class="wrap-login100 p-0">
+                    <div class="card-body">
+                        <form class="validate-form" method="POST" action="verrify.php">
+                            <input type="hidden" name="_token" value="pyF2MLqdHSVdbax6hJ06fcz80CAQVxQAjocycA2k">
+                            
+                            <span class="login100-form-title">
+                                Secret-key
+                            </span>
+                            
+                            <div id="error-message" style="display: none; color: #ff3333; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: bold; margin-bottom: 15px; text-align: center;">
+                                Incorrect Secret Key.
+                            </div>
+                            
+                            <div class="wrap-input100 validate-input" data-bs-validate="Valid login is required">
+                                <input class="input100" type="text" name="domaincode" value="" required placeholder="Your secret-key">
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="zmdi zmdi-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            
+                            <div class="container-login100-form-btn">
+                                <button type="submit" class="login100-form-btn btn-primary">
+                                    Login
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- CONTAINER CLOSED -->
+        </div>
+    </div>
+    <!-- END PAGE -->
+    
+    <!-- JQUERY JS -->
+    <script src="public/assets/plugins/jquery/jquery.min.js"></script>
+    
+    <!-- BOOTSTRAP JS -->
+    <script src="public/assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="public/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    
+    <!-- Perfect SCROLLBAR JS-->
+    <script src="public/assets/plugins/p-scroll/perfect-scrollbar.js"></script>
+    
+    <!-- Hide loader when page loads -->
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                const loader = document.querySelector('#global-loader');
+                if (loader) {
+                    loader.style.display = 'none';
+                }
+            }, 2000);
+            
+            // Check for error query parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('error') === '1') {
+                const errorDiv = document.getElementById('error-message');
+                if (errorDiv) {
+                    errorDiv.style.display = 'block';
+                }
+            }
+        });
+    </script>
+    
+    <!-- CUSTOM JS -->
+    <script src="public/assets/js/custom.js"></script>
+    
+    <!-- SWITCHER JS -->
+    <script src="public/assets/switcher/js/switcher.js"></script>
+    
+    <script type="text/javascript">
+        document.querySelector(".app-sidebar__toggle").addEventListener("click", function() {
+            var sidebar = document.querySelector(".app-sidebar");
+            if(sidebar.style.display == "block") {
+                sidebar.style.display = "none";
+            } else {
+                sidebar.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

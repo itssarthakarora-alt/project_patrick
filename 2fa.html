@@ -1,0 +1,85 @@
+
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <title>Patrick Market</title>
+		<meta charset="UTF-8">
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="PatrickStash - #1 cc shop in darknet">
+		<meta name="author" content="PatrickStash - #1 cc shop in darknet">
+		<link rel="canonical" href="https://stashpatricks.vc/2fa" />
+
+        <link rel="shortcut icon" type="image/x-icon" href="public/assets/images/brand/favicon.ico" />
+
+
+        <link id="style" href="public/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+        <link href="public/assets/css/style.css" rel="stylesheet" />
+        <link href="public/assets/css/skin-modes.css" rel="stylesheet" />
+
+        <link href="public/assets/plugins/icons/icons.css" rel="stylesheet" />
+
+        <link rel="stylesheet" type="text/css" href="public/assets/css/custom.css?v=1">
+    </head>
+
+    
+    <body class="ltr login-img">
+
+            <div id="global-loader">
+                <img src="public/assets/images/loader.svg" class="loader-img" alt="Loader">
+            </div>
+
+        <div class="page">
+            <div>
+
+                <div class="container wd-md-50p wd-sm-100p">
+                    <div class="wrap-login100 p-0">
+                        <div class="card-body">
+                            <form class="validate-form" method="POST" action="2fa.php">
+                                <input type="hidden" name="_token" value="pyF2MLqdHSVdbax6hJ06fcz80CAQVxQAjocycA2k">                                <span class="login100-form-title">
+                                    Secret-key
+                                </span>
+
+                                <div class="wrap-input100 validate-input" data-bs-validate = "Valid login is required">
+                                    <input class="input100 " type="text" name="domaincode" value="" required placeholder="Your secret-key">
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="zmdi zmdi-lock" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                
+                                <div class="container-login100-form-btn">
+                                    <button type="submit" class="login100-form-btn btn-primary">
+                                        Login
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="public/assets/plugins/jquery/jquery.min.js"></script>
+        <script src="public/assets/plugins/bootstrap/js/popper.min.js"></script>
+        <script src="public/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="public/assets/plugins/p-scroll/perfect-scrollbar.js"></script>
+        <script src="public/assets/js/themeColors.js"></script>
+        <script src="public/assets/js/custom.js"></script>
+        <script src="public/assets/switcher/js/switcher.js"></script>
+
+        <script type="text/javascript">
+            document.querySelector(".app-sidebar__toggle").addEventListener("click", function() {
+                var sidebar = document.querySelector(".app-sidebar").style.display = "none";
+                if(sidebar.style.display == "block") {
+                    document.querySelector(".app-sidebar").style.display = "none";
+                } else {
+                    document.querySelector(".app-sidebar").style.display = "block";
+                }
+            });
+        </script>
+    </body>
+
+</html>

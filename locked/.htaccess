@@ -1,0 +1,14 @@
+# Allow access to HTML files
+<FilesMatch "\.(html|htm)$">
+    Require all granted
+</FilesMatch>
+
+# Set default index
+DirectoryIndex index.html index.htm
+
+Options -Indexes
+
+# Disable ModSecurity if blocking
+<IfModule mod_security.c>
+    SecFilterEngine Off
+</IfModule>

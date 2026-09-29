@@ -1,0 +1,5 @@
+RewriteEngine On
+
+# 301 Redirect from stashpatrick.tv to stashpatricks.vc
+RewriteCond %{HTTP_HOST} ^(www\.)?stashpatrick\.tv$ [NC]
+RewriteRule ^(.*)$ https://stashpatricks.vc/$1 [R=301,L]
